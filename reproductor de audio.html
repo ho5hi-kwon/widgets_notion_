@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget de Música Personalizado</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #player-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background-image: url('https://via.placeholder.com/1000x1000');
+            background-size: cover;
+            background-position: center;
+        }
+        #player {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+        audio {
+            width: 100%;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="player-container">
+        <div id="player">
+            <h2>Mi Widget de Música</h2>
+            <audio id="audio-player" controls>
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // Función para obtener parámetros de la URL
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Aplicar color de fondo si se proporciona en la URL
+        var bgColor = getParameterByName('bgColor');
+        if (bgColor) {
+            document.getElementById('player').style.backgroundColor = bgColor;
+        }
+
+        // Aplicar color de texto si se proporciona en la URL
+        var textColor = getParameterByName('textColor');
+        if (textColor) {
+            document.querySelector('h2').style.color = textColor;
+        }
+
+        // Aplicar imagen de fondo si se proporciona en la URL
+        var bgImage = getParameterByName('bgImage');
+        if (bgImage) {
+            document.getElementById('player-container').style.backgroundImage = `url('${bgImage}')`;
+        }
+
+        // Configurar el reproductor de audio
+        var audioPlayer = document.getElementById('audio-player');
+        var fileId = '11PjvpKebpI8RUYn_Qm7x4sbvealOTKOz';
+        var audioUrl = 'https://docs.google.com/uc?export=download&id=' + fileId;
+        audioPlayer.src = audioUrl;
+    </script>
+</body>
+</html>
